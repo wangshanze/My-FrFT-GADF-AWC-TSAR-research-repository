@@ -5,7 +5,7 @@ import torch.nn.functional as F
 
 
 class SEBlock(nn.Module):
-    """SENet 通道注意力块"""
+    """SENet"""
     def __init__(self, channels, reduction=16):
         super().__init__()
         self.avg_pool = nn.AdaptiveAvgPool2d(1)
@@ -25,22 +25,17 @@ class SEBlock(nn.Module):
 
 
 class MultiScaleBlock(nn.Module):
-    """
-    多尺度卷积块，模仿 SE-MSCNN 里的三个分支 (3x3 / 5x5 / 7x7) + 1x1 融合 + SE
-    """
     def __init__(self, in_channels, out_channels):
         super().__init__()
 
-        mid = out_channels // 3  # 三个分支大致均分通道
+        mid = out_channels // 3 
 
-        # 分支1：3x3
         self.branch3 = nn.Sequential(
             nn.Conv2d(in_channels, mid, kernel_size=3, padding=1, bias=False),
             nn.BatchNorm2d(mid),
             nn.ReLU(inplace=True),
         )
 
-        # 分支2：5x5
         self.branch5 = nn.Sequential(
             nn.Conv2d(in_channels, mid, kernel_size=5, padding=2, bias=False),
             nn.BatchNorm2d(mid),
@@ -48,7 +43,6 @@ class MultiScaleBlock(nn.Module):
             nn.Dropout(0.2),# HIT,HUST
         )
 
-        # 分支3：7x7
         self.branch7 = nn.Sequential(
             nn.Conv2d(in_channels, mid, kernel_size=7, padding=3, bias=False),
             nn.BatchNorm2d(mid),
@@ -79,9 +73,6 @@ class MultiScaleBlock(nn.Module):
 
 
 class SE_MSCNN_Backbone(nn.Module):
-    """
-    2D SE-MSCNN 主干，输入是 (N, 1, H, W) 的时频图
-    """
     def __init__(self, in_channels=1, num_classes=10):
         super().__init__()
 
@@ -131,7 +122,7 @@ class LMSWT_SE_MSCNN(nn.Module):
         hop_length: int = 64,
     ):
         super().__init__()
-        assert in_channels == 1, "当前实现假定输入通道为 1"
+        assert in_channels == 1, 
 
         self.signal_length = signal_length
         self.tf_size = tf_size
@@ -141,10 +132,7 @@ class LMSWT_SE_MSCNN(nn.Module):
         self.backbone = SE_MSCNN_Backbone(in_channels=1, num_classes=num_classes)
 
     def _lmswt_like_tf(self, x: torch.Tensor) -> torch.Tensor:
-        """
-        x: (N, 1, L) 原始振动信号
-        返回： (N, 1, H, W) 的“LMSWT-like”时频图
-        """
+
         # x -> (N, L)
         x = x.squeeze(1)
 
@@ -162,7 +150,7 @@ class LMSWT_SE_MSCNN(nn.Module):
 
         spec = spec.abs()  # 幅度谱 (N, F, T)
 
-        # 频率方向做一个 3 点局部最大池化，模拟 LMSWT 的局部最大重分配
+        # 频率方向做一个 3 点局部最大池化，LMSWT 的局部最大重分配
         spec = spec.unsqueeze(1)  # (N, 1, F, T)
         pad_f = 1
         spec_padded = F.pad(spec, (0, 0, pad_f, pad_f), mode="replicate")
