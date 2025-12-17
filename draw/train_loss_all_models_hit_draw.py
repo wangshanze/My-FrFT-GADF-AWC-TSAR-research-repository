@@ -10,7 +10,7 @@ print(df.head())
 # 获取 epoch 列
 epochs = df.iloc[:, 0]
 
-# 获取模型名称（除第一列）
+# 获取模型名称
 model_names = df.columns[1:]
 
 print("Models:", model_names.tolist())
