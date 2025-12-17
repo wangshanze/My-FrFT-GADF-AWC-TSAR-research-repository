@@ -20,7 +20,6 @@ def extract_all(dataset='HIT', samples_num=1000, noise_snr_db=None):
     """
     noise_snr_db: float or None
         为 None 时不加噪声
-        设置为 30~40dB 时可使模型轻微下降 1%
     """
 
     # =============================
@@ -120,10 +119,8 @@ def extract_all(dataset='HIT', samples_num=1000, noise_snr_db=None):
         if i % 20 == 0:
             print(f"GADF 处理进度：{i}/{len(selected_samples)}")
 
-        # -----------★ 这里加入噪声（仅此行）★-----------
         if noise_snr_db is not None:
             sig = add_noise_by_snr(sig, noise_snr_db)
-        # ----------------------------------------------
 
         for a_idx, a in enumerate(a_values):
             frft_result = frft(sig, a)
