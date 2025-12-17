@@ -29,8 +29,17 @@ Any comments, suggestions, or constructive feedback are **warmly welcome**. 🙌
 ---
 
 ## ❓ Requirements
-
-
+matplotlib==3.7.5
+numpy==1.24.3
+numpy==1.24.4
+pandas==2.0.3
+pyts==0.13.0
+PyWavelets==1.4.1
+scikit_learn==1.3.0
+scikit_learn==1.3.2
+scipy==1.10.1
+torch==2.3.1+cu121
+torchvision==0.18.1+cu121
 
 ---
 
