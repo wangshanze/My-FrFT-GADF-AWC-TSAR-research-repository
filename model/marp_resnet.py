@@ -52,14 +52,9 @@ class BasicBlock(nn.Module):
 
 
 class MiniResNet4(nn.Module):
-    """
-    超轻量 4 层 ResNet (conv1 + 4 × BasicBlock)
-    输入：3x224x224
-    输出：num_classes
-    """
     def __init__(self, num_classes=10, in_channels=3):
         super().__init__()
-        self.inplanes = 32  # 初始通道
+        self.inplanes = 32
 
         self.conv1 = nn.Conv2d(
             in_channels, 32,
@@ -110,18 +105,12 @@ class MiniResNet4(nn.Module):
                 nn.init.constant_(m.bias, 0)
 
 
-# ============================================================
-#                     MARP 生成函数（保持原样）
-# ============================================================
-
 def build_marp_from_signal(
     signal_1d: np.ndarray,
     wavelet: str = "sym8",
     level: int = 3,
     rp_size: int = 64,
 ) -> np.ndarray:
-    if pywt is None:
-        raise ImportError("需要先安装 pywt: pip install pywavelets")
 
     wp = pywt.WaveletPacket(
         data=signal_1d,
@@ -170,38 +159,28 @@ def build_marp_from_signal(
 
 
 class MARPResNet34(nn.Module):
-    """
-    输入: 信号 (N, 1, L)
-    输出: 分类 logits
-    不使用 MARP，直接使用 MiniResNet4 处理1D信号
-    """
     def __init__(
         self,
         num_classes: int,
         in_channels: int = 1,
         signal_length: int = 2048,
-        rp_size: int = 64,  # 保留参数但不再使用
+        rp_size: int = 64,
     ):
         super().__init__()
         self.signal_length = signal_length
         
-        # 计算正方形尺寸（如果可能的话）
         self.square_size = int(np.sqrt(signal_length))
         if self.square_size * self.square_size != signal_length:
-            # 如果不是完全平方数，使用最接近的平方数
             self.square_size = int(np.sqrt(signal_length)) + 1
         
-        # 使用你的 MiniResNet4（修改为接受单通道输入）
         self.backbone = MiniResNet4(num_classes=num_classes, in_channels=1)
         
-        # 自适应池化确保输出大小一致
         self.adaptive_pool = nn.AdaptiveAvgPool2d((224, 224))
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         N, C, L = x.shape
         assert C == 1, "输入应为 (N, 1, L)"
         
-        # 调整信号长度到正方形尺寸
         target_length = self.square_size ** 2
         if L < target_length:
             # 填充
@@ -211,12 +190,9 @@ class MARPResNet34(nn.Module):
             # 截断
             x = x[:, :, :target_length]
         
-        # 重塑为2D图像 (N, 1, H, W)
         x_2d = x.view(N, 1, self.square_size, self.square_size)
         
-        # 调整到标准图像大小 (224x224)
         x_2d = self.adaptive_pool(x_2d)
         
-        # 通过 MiniResNet4
         out = self.backbone(x_2d)
         return out
