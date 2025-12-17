@@ -5,10 +5,6 @@ import torch.nn.functional as F
 
 
 class AdaptiveCNN(nn.Module):
-    """
-    输入：原始轴承信号 (N, 1, L)
-    使用自适应池化，适应不同长度
-    """
     def __init__(self, num_classes: int, in_channels: int = 1):
         super().__init__()
         self.features = nn.Sequential(
