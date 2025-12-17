@@ -1,8 +1,16 @@
-# &#x1F4CC;My-FrFT-GADF-AWC-TSAR-research-repository
-## &#x1F600;The significance and purpose of the warehouse
-This warehouse is for storing the code of my FrFT-GADF-AWC-TSAR model, which is used for diagnosing faults in aircraft engine bearings. It is going to be considered for publication in the journal [Measurement]. I have voluntarily made my code public. Welcome everyone to offer your comments and suggestions.
+# 📌 My-FrFT-GADF-AWC-TSAR-Research-Repository
+## 😀 Significance and Purpose of This Repository
 
-## &#x1F3AF;Warehouse structure
+This repository is used to store the source code of my **FrFT-GADF-AWC-TSAR model**, which is designed for **fault diagnosis of aero-engine bearings**.
+
+The work has recently undergone a round of revisions and is currently **under consideration for publication in the journal *Measurement***. It has not yet been accepted at this stage.
+
+I have **voluntarily made the source code publicly available**.  
+Any comments, suggestions, or constructive feedback are **warmly welcome**. 🙌
+
+
+## 🎯 Repository Structure
+
 ```text
 .
 ├── data/                  # Raw data
@@ -15,33 +23,70 @@ This warehouse is for storing the code of my FrFT-GADF-AWC-TSAR model, which is 
 ├── Result/                # Main experimental results
 │   ├── hit/
 │   └── hust/
-├── Result/                # Best .pth
+├── Result_AB/             # Best .pth models
 └── utils/                 # Common utility functions
+````
 
-```
+---
 
-## &#x2753;Data and matters
-数据分别来自于哈尔滨工业大学和华中科技大学，两个数据的doi分别是:
+## ❓ Data Description and Notes
 
-HIT(DOI: 10.37965/jdmd.2023.314)
+The datasets used in this work are provided by **Harbin Institute of Technology (HIT)** and **Huazhong University of Science and Technology (HUST)**.
+The corresponding DOIs are listed below:
 
-HUST(DOI:10.1016/j.ress.2024.109964)
+* **HIT Dataset**
+  DOI: `10.37965/jdmd.2023.314`
 
-由于不方便上传很大的文件到Github，因此我将data文件夹的数据放到网盘中，大家可以自己下载，替换data文件夹即可，这是我自己处理好的数据，可以直接使用。
+* **HUST Dataset**
+  DOI: `10.1016/j.ress.2024.109964`
 
-Google Drive：
+Due to the large size of the datasets, it is **not convenient to upload them directly to GitHub**.
+Therefore, the processed data in the `data/` directory has been uploaded to cloud storage.
 
-https://drive.google.com/drive/folders/1QyeHKVDv-vLnRQr4rin1gfft9_qagqV6?usp=drive_link
+You can **download the data and replace the local `data/` directory directly**.
+The data has already been preprocessed and is **ready for immediate use**.
 
-或者 Xunlei Drive：
+### 📦 Google Drive
 
-链接：https://pan.xunlei.com/s/VOgedWwFzdrA2TzzB85NHINmA1# 提取码：rpce
+[https://drive.google.com/drive/folders/1QyeHKVDv-vLnRQr4rin1gfft9_qagqV6?usp=drive_link](https://drive.google.com/drive/folders/1QyeHKVDv-vLnRQr4rin1gfft9_qagqV6?usp=drive_link)
 
-## &#x1F914;How to Use?
+### 📦 Xunlei Drive
+
+Link: [https://pan.xunlei.com/s/VOgedWwFzdrA2TzzB85NHINmA1](https://pan.xunlei.com/s/VOgedWwFzdrA2TzzB85NHINmA1)
+Extraction Code: `rpce`
+
+---
+
+## 🤔 How to Use?
+
+Very simple! 🚀
+
+1. Download the dataset from the cloud storage.
+2. Place the data into the `data/` directory.
+3. Navigate to the `research-code/` folder.
+
+Inside `research-code/`, you will find:
+
+* **Jupyter notebooks** for interactive experiments
+* **`main.py`**, which is used for **performance comparison across different models**
+
+You may run **either option** depending on your needs.
+
+---
+
+## ✨ Acknowledgement
+
+I would like to express my sincere gratitude to the **editors and reviewers of the journal *Measurement*** for their hard work, valuable comments, and insightful suggestions. 
+
+Special thanks are also extended to **my supervisor** for continuous guidance and support.
+
+---
+
+## 📑 Future Work
+
+In the future, this work will be extended to develop **more intelligent multi-order fractional Fourier transform fusion algorithms**.
+I believe such studies are both **necessary and meaningful** for advancing intelligent fault diagnosis.
+
+Thank you very much for your interest and time! 😊
 
 
-## &#x2728;Acknowledgement
-
-
-
-## &#x1F4D1;Subsequently
