@@ -12,10 +12,10 @@ from model.AWC import AdaptiveWeighting
 from model.TSAR import TSAR
 
 class GADFMultiChannelNet(nn.Module):
-    def __init__(self, num_classes=10, input_channels=22):  # 修改默认输入通道为22
+    def __init__(self, num_classes=10, input_channels=22): 
         super(GADFMultiChannelNet, self).__init__()
 
-        # 分数阶自适应加权模块
+
         self.foaw = AdaptiveWeighting(input_channels=input_channels, output_channels=32)
 
         # 初始特征提取
@@ -63,7 +63,7 @@ class GADFMultiChannelNet(nn.Module):
         self.order_weights = None
 
     def forward(self, x):
-        # 应用分数阶自适应加权模块
+
         x, weights = self.foaw(x)
         self.order_weights = weights  # 保存用于可视化
 
