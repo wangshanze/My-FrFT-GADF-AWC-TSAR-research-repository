@@ -21,13 +21,19 @@ This warehouse is for storing the code of my FrFT-GADF-AWC-TSAR model, which is 
 
 ## &#x2753;Data and matters
 数据分别来自于哈尔滨工业大学和华中科技大学，两个数据的doi分别是:
+
 HIT(DOI: 10.37965/jdmd.2023.314)
+
 HUST(DOI:10.1016/j.ress.2024.109964)
 
 由于不方便上传很大的文件到Github，因此我将data文件夹的数据放到网盘中，大家可以自己下载，替换data文件夹即可，这是我自己处理好的数据，可以直接使用。
+
 Google Drive：
+
 https://drive.google.com/drive/folders/1QyeHKVDv-vLnRQr4rin1gfft9_qagqV6?usp=drive_link
+
 或者 Xunlei Drive：
+
 链接：https://pan.xunlei.com/s/VOgedWwFzdrA2TzzB85NHINmA1# 提取码：rpce
 
 ## &#x1F914;How to Use?
