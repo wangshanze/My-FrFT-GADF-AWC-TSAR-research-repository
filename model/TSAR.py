@@ -7,49 +7,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torch.nn.functional as F
 
-"""
-输入 (x)
-  |
-  ├─────────────────┬───────────────────┐
-  |                 |                   |
-主路径            辅助路径            残差连接
-(标准卷积)     (深度可分离卷积)      (shortcut)
-  |                 |                   |
-Conv2d(1,5)    DepthwiseConv2d(1,5)     |
-  |                 |                   |
-BatchNorm2d     PointwiseConv1d         |
-  |                 |                   |
-  ReLU          BatchNorm2d             |
-  |                 |                   |
-  |                ReLU                 |
-  |                 |                   |
-  └─────────────────┘                   |
-          |                             |
-     特征拼接(cat)                       |
-          |                             |
-     融合卷积(1x1)                       |
-          |                             |
-      BatchNorm2d                       |
-          |                             |
-         ReLU                           |
-          |                             |
-     通道注意力机制                      |
-   (Channel Attention)                  |
-          |                             |
-     特征加权(乘法)                      |
-          |                             |
-     空间注意力机制                      |
-   (Spatial Attention)                  |
-          |                             |
-     特征加权(乘法)                      |
-          |                             |
-          └─────────────────────────────┘
-                      |
-                  特征相加(+)
-                      |
-                    输出
-    通道注意力+空间注意力 = CBAM卷积注意力
-"""
 
 class TSAR(nn.Module):
     def __init__(self, in_channels, out_channels):
@@ -64,13 +21,12 @@ class TSAR(nn.Module):
 
         # 辅助路径 - 深度可分离卷积
         self.aux_path = nn.Sequential(
-            nn.Conv2d(in_channels, in_channels, kernel_size=3, padding=1, groups=in_channels),  # 深度卷积
-            nn.Conv2d(in_channels, out_channels, kernel_size=1),  # 逐点卷积
+            nn.Conv2d(in_channels, in_channels, kernel_size=3, padding=1, groups=in_channels),
+            nn.Conv2d(in_channels, out_channels, kernel_size=1),
             nn.BatchNorm2d(out_channels),
             nn.ReLU()
         )
 
-        # 特征互补融合模块
         self.fusion = nn.Sequential(
             nn.Conv2d(out_channels * 2, out_channels, kernel_size=1),
             nn.BatchNorm2d(out_channels),
