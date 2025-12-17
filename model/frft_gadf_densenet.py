@@ -11,7 +11,7 @@ class FrFTGADFDenseNet(nn.Module):
         super().__init__()
         backbone = densenet121(weights=None)
 
-        # 修改第一层卷积
+        # 第一层卷积
         backbone.features.conv0 = nn.Conv2d(
             input_channels, 64,
             kernel_size=7, stride=2, padding=3, bias=False
