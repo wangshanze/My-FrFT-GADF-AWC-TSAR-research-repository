@@ -14,7 +14,6 @@ def dwt_multiscale(x, wavelet='db4', level=3):
     coeff_list = []
 
     for sig in x_np:
-        # 多尺度小波分解
         coeffs = pywt.wavedec(sig, wavelet=wavelet, level=level)
         # coeffs = [A3, D3, D2, D1]
         coeff_list.append(coeffs)
@@ -38,12 +37,6 @@ def dwt_multiscale(x, wavelet='db4', level=3):
 
 
 class WaveletCNN(nn.Module):
-    """
-    使用真实小波变换的小波 CNN
-    输入：原始信号 (N, 1, L)
-    小波分解：db4，多尺度
-    CNN 输入：(N, C, L')
-    """
     def __init__(self, num_classes: int, wavelet='db4', dwt_level=3):
         super().__init__()
         self.wavelet = wavelet
