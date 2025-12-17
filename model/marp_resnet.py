@@ -176,7 +176,7 @@ class MARPResNet34(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         N, C, L = x.shape
-        assert C == 1, "输入应为 (N, 1, L)"
+        assert C == 1
         
         target_length = self.square_size ** 2
         if L < target_length:
