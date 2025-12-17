@@ -122,7 +122,7 @@ class LMSWT_SE_MSCNN(nn.Module):
         hop_length: int = 64,
     ):
         super().__init__()
-        assert in_channels == 1, 
+        assert in_channels == 1
 
         self.signal_length = signal_length
         self.tf_size = tf_size
