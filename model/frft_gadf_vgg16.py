@@ -30,16 +30,12 @@ class FrFTGADFVGG16(nn.Module):
         self.features = nn.Sequential(
             VGG(input_channels, 64, kernel_size=7, stride=2),
 
-            # WDCNN layer2: Conv(kernel=3)
             VGG(64, 128, kernel_size=3),
 
-            # WDCNN layer3
             VGG(128, 256, kernel_size=3),
 
-            # WDCNN layer4
             VGG(256, 384, kernel_size=3),
 
-            # WDCNN layer5（最终通道设为 512，适配 FC）
             VGG(384, 512, kernel_size=3),
         )
 
