@@ -8,7 +8,7 @@ import numpy as np
 def dwt_multiscale(x, wavelet='db4', level=3):
     """
     x: Tensor, shape (N, 1, L)
-    return: Tensor, shape (N, C, L')   例如 level=3 → C = 4 (A3, D3, D2, D1)
+    return: Tensor, shape (N, C, L') 
     """
     x_np = x.squeeze(1).cpu().numpy()  # (N, L)
     coeff_list = []
