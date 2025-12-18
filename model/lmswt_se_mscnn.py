@@ -12,7 +12,6 @@ class SEBlock(nn.Module):
         self.fc = nn.Sequential(
             nn.Linear(channels, channels // reduction, bias=False),
             nn.ReLU(inplace=True),
-            # nn.Dropout(0.5),# HIT
             nn.Linear(channels // reduction, channels, bias=False),
             nn.Sigmoid(),
         )
@@ -40,21 +39,21 @@ class MultiScaleBlock(nn.Module):
             nn.Conv2d(in_channels, mid, kernel_size=5, padding=2, bias=False),
             nn.BatchNorm2d(mid),
             nn.ReLU(inplace=True),
-            nn.Dropout(0.2),# HIT,HUST
+            nn.Dropout(0.2),
         )
 
         self.branch7 = nn.Sequential(
             nn.Conv2d(in_channels, mid, kernel_size=7, padding=3, bias=False),
             nn.BatchNorm2d(mid),
             nn.ReLU(inplace=True),
-            nn.Dropout(0.2),# HIT,HUST
+            nn.Dropout(0.2),
         )
 
         self.fuse = nn.Sequential(
             nn.Conv2d(3 * mid, out_channels, kernel_size=1, bias=False),
             nn.BatchNorm2d(out_channels),
             nn.ReLU(inplace=True),
-            nn.Dropout(0.2),# HIT,HUST
+            nn.Dropout(0.2),
         )
 
         self.se = SEBlock(out_channels)
