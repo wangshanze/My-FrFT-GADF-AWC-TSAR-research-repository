@@ -14,41 +14,35 @@ class WDCNN(nn.Module):
             nn.Conv1d(input_channel,out_channels=16,kernel_size=64,stride=16,padding=24),
             nn.BatchNorm1d(16),
             nn.ReLU(),
-            # nn.Dropout(0.05),
             nn.MaxPool1d(kernel_size=2,stride=2)
         )    
         self.layer2 = nn.Sequential(
             nn.Conv1d(in_channels=16,out_channels=32,kernel_size=3,stride=1,padding=1),
             nn.BatchNorm1d(32),
             nn.ReLU(),
-            # nn.Dropout(0.1),
             nn.MaxPool1d(kernel_size=2,stride=2)
         )   
         self.layer3 = nn.Sequential(
             nn.Conv1d(in_channels=32,out_channels=64,kernel_size=3,stride=1,padding=1),
             nn.BatchNorm1d(64),
             nn.ReLU(),
-            # nn.Dropout(0.05),
             nn.MaxPool1d(kernel_size=2,stride=2)
         )   
         self.layer4 = nn.Sequential(
             nn.Conv1d(64,out_channels=64,kernel_size=3,stride=1,padding=1),
             nn.BatchNorm1d(64),
             nn.ReLU(),
-            # nn.Dropout(0.05),
             nn.MaxPool1d(kernel_size=2,stride=2)
         )   
         self.layer5 = nn.Sequential(
             nn.Conv1d(64,out_channels=64,kernel_size=3,stride=1,padding=1),
             nn.BatchNorm1d(64),
             nn.ReLU(),
-            # nn.Dropout(0.1),
             nn.MaxPool1d(kernel_size=2,stride=2)
         )
         self.fc = nn.Sequential(
             nn.Linear(256,100),
             nn.ReLU(),
-            # nn.Dropout(0.05),
             nn.Linear(100,output_channel)
         )
     def forward(self,x):
