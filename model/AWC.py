@@ -145,7 +145,6 @@ def extract_foaw_features(model, data_loader, num_samples=20):
             # 前向传播，获取权重
             _, weights = model.foaw(inputs)
             
-            # 只收集我们需要的样本数量
             actual_samples = min(batch_size, num_samples - samples_collected)
             
             # 收集权重
