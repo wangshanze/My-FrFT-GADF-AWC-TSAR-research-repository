@@ -28,7 +28,6 @@ class FrFTGADFVGG16(nn.Module):
         super().__init__()
 
         self.features = nn.Sequential(
-            # 对应原 WDCNN layer1：kernel=64 → 2D 用 7×7，大步长扩大感受野
             VGG(input_channels, 64, kernel_size=7, stride=2),
 
             # WDCNN layer2: Conv(kernel=3)
@@ -44,10 +43,8 @@ class FrFTGADFVGG16(nn.Module):
             VGG(384, 512, kernel_size=3),
         )
 
-        # 让输出统一变为 7×7，保证 FC 输入维度一致
         self.avgpool = nn.AdaptiveAvgPool2d((7, 7))
 
-        # FC 层完全保持你原来不变
         self.classifier = nn.Sequential(
             nn.Linear(512 * 7 * 7, 4096),
             nn.ReLU(True),
@@ -62,7 +59,7 @@ class FrFTGADFVGG16(nn.Module):
 
     def forward(self, x):
         x = self.features(x)
-        x = self.avgpool(x)      # 保证输出变成 (N, 512, 7, 7)
+        x = self.avgpool(x)   
         x = torch.flatten(x, 1)  # 变成 (N, 25088)
         return self.classifier(x)
 
