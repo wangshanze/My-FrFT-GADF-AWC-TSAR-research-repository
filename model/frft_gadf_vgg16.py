@@ -7,7 +7,7 @@ class VGG(nn.Module):
         super().__init__()
 
         if padding is None:
-            padding = kernel_size // 2  # 保持空间尺寸
+            padding = kernel_size // 2
 
         self.block = nn.Sequential(
             nn.Conv2d(in_channels, out_channels,
@@ -44,11 +44,10 @@ class FrFTGADFVGG16(nn.Module):
         self.classifier = nn.Sequential(
             nn.Linear(512 * 7 * 7, 4096),
             nn.ReLU(True),
-            # nn.Dropout(),# HIT
 
             nn.Linear(4096, 4096),
             nn.ReLU(True),
-            nn.Dropout(), # HIT,HUST
+            nn.Dropout(),
 
             nn.Linear(4096, num_classes)
         )
@@ -56,6 +55,6 @@ class FrFTGADFVGG16(nn.Module):
     def forward(self, x):
         x = self.features(x)
         x = self.avgpool(x)   
-        x = torch.flatten(x, 1)  # 变成 (N, 25088)
+        x = torch.flatten(x, 1) 
         return self.classifier(x)
 
