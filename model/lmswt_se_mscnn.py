@@ -5,7 +5,6 @@ import torch.nn.functional as F
 
 
 class SEBlock(nn.Module):
-    """SENet"""
     def __init__(self, channels, reduction=16):
         super().__init__()
         self.avg_pool = nn.AdaptiveAvgPool2d(1)
@@ -75,16 +74,13 @@ class SE_MSCNN_Backbone(nn.Module):
     def __init__(self, in_channels=1, num_classes=10):
         super().__init__()
 
-        # 第一层卷积
         self.stem = nn.Sequential(
             nn.Conv2d(in_channels, 32, kernel_size=3, padding=1, bias=False),
             nn.BatchNorm2d(32),
             nn.ReLU(inplace=True),
-            # nn.Dropout(0.3),# HIT
             nn.MaxPool2d(kernel_size=2, stride=2),
         )
 
-        # 三个多尺度块
         self.ms1 = MultiScaleBlock(32, 64)
         self.ms2 = MultiScaleBlock(64, 128)
         self.ms3 = MultiScaleBlock(128, 256)
@@ -93,7 +89,6 @@ class SE_MSCNN_Backbone(nn.Module):
         self.fc = nn.Linear(256, num_classes)
 
     def forward(self, x):
-        # x: (N, 1, H, W)
         x = self.stem(x)
         x = self.ms1(x)
         x = self.ms2(x)
