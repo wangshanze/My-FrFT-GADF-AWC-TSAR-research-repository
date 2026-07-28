@@ -3,7 +3,7 @@
 
 This repository is used to store the source code of my **FrFT-GADF-AWC-TSAR model**, which is designed for **fault diagnosis of aero-engine bearings**.
 
-The work has recently undergone a round of revisions and is currently **under consideration for publication in the journal *Measurement***. It has not yet been accepted at this stage.
+The work has recently undergone a round of revisions and is currently **under consideration for publication in the journal *Measurement***. It has been accepted at this stage.
 
 I have **voluntarily made the source code publicly available**.  
 Any comments, suggestions, or constructive feedback are **warmly welcome**. 🙌
