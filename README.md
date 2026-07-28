@@ -66,11 +66,6 @@ The data has already been preprocessed and is **ready for immediate use**.
 
 [https://drive.google.com/drive/folders/1QyeHKVDv-vLnRQr4rin1gfft9_qagqV6?usp=drive_link](https://drive.google.com/drive/folders/1QyeHKVDv-vLnRQr4rin1gfft9_qagqV6?usp=drive_link)
 
-### 📦 Xunlei Drive
-
-Link: [https://pan.xunlei.com/s/VOgedWwFzdrA2TzzB85NHINmA1](https://pan.xunlei.com/s/VOgedWwFzdrA2TzzB85NHINmA1)
-Extraction Code: `rpce`
-
 ---
 
 ## 🤔 How to Use?
